@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Models;
 
-namespace cinema2.Domain.Persistence.Contexts
+namespace booking.Contexts
 {
     public class AppDbContext : DbContext
     {
