@@ -16,22 +16,22 @@ dotnet ef database update
 
     * Return all salons: 
     ```
-     GET api-v1/salons/id
+     GET api/v1/salons/id
     ```
      
     * Add a salon:
     ```
-     POST api-v1/salons
+     POST api/v1/salons
     ```
 
     * Update a salon:
     ```
-     PUT api-v1/salons/id
+     PUT api/v1/salons/id
     ```
 
     * Delete a salon:
     ```
-     DELETE api-v1/salons/id
+     DELETE api/v1/salons/id
     ```
 
 
@@ -39,22 +39,22 @@ dotnet ef database update
 
     * Return all shows:
     ```
-     GET api-v1/shows
+     GET api/v1/shows
     ```
 
     * Add a show:
     ```
-     POST api-v1/shows
+     POST api/v1/shows
     ```
 
     * Update a show:
     ```
-     PUT api-v1/shows/id
+     PUT api/v1/shows/id
     ```
 
     * Delete a show:
     ```
-     DELETE api-v1/shows/id
+     DELETE api/v1/shows/id
     ```
 
 
