@@ -5,11 +5,12 @@ using Microsoft.AspNetCore.Mvc;
 using Booking.Models;
 using Booking.Services;
 using Booking.Resources;
+using System;
 
 namespace Booking.Controllers
 {
 
-    [Route("api/v1/salons")]
+    [Route("api-v1/salons")]
     [Produces("application/json")]
     [ApiController]
     public class SalonControler : ControllerBase 
@@ -21,7 +22,7 @@ namespace Booking.Controllers
             _mapper = mapper;
         }
 
-        // GET api/vi/salons
+        // GET api-vi/salons
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<SalonResource>), 200)]
         public async Task<IEnumerable<SalonResource>> ListAsync(){
@@ -34,8 +35,9 @@ namespace Booking.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(SalonResource), 201)]
         [ProducesResponseType(typeof(ErrorResource), 400)]
-        public async Task<IActionResult> PostAsync([FromBody] SaveSalonResource resource)
+        public async Task<IActionResult> PostAsync(SaveSalonResource resource)
         {
+            
             var salon = _mapper.Map<SaveSalonResource, Salon>(resource);
             var result = await _salonService.SaveAsync(salon);
 
@@ -50,7 +52,7 @@ namespace Booking.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(SalonResource), 200)]
         [ProducesResponseType(typeof(ErrorResource), 400)]
-        public async Task<IActionResult> UpdateAsync(int id, [FromBody] SaveSalonResource resource)
+        public async Task<IActionResult> UpdateAsync(int id, SaveSalonResource resource)
         {
             var salon = _mapper.Map<SaveSalonResource, Salon>(resource);
             var result = await _salonService.UpdateAsync(id, salon);
