@@ -42,10 +42,8 @@ namespace Booking.Controllers
         [ProducesResponseType(typeof(ErrorResource), 400)]
         public async Task<IActionResult> PostAsync(SaveShowResource resource)
         {
-            Console.WriteLine("end:"+resource.EndTime);
             var show = _mapper.Map<SaveShowResource, Show>(resource);
             var result = await _showService.SaveAsync(show);
-
 
             if (!result.Success)
             {
@@ -59,7 +57,7 @@ namespace Booking.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(ShowResource), 201)]
         [ProducesResponseType(typeof(ErrorResource), 400)]
-        public async Task<IActionResult> PutAsync(int id, [FromBody] SaveShowResource resource)
+        public async Task<IActionResult> UpdateAsync(int id, [FromBody] SaveShowResource resource)
         {
             var show = _mapper.Map<SaveShowResource, Show>(resource);
             var result = await _showService.UpdateAsync(id, show);

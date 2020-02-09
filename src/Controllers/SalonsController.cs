@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using Booking.Models;
 using Booking.Services;
 using Booking.Resources;
-using System;
 
 namespace Booking.Controllers
 {
@@ -37,7 +36,6 @@ namespace Booking.Controllers
         [ProducesResponseType(typeof(ErrorResource), 400)]
         public async Task<IActionResult> PostAsync(SaveSalonResource resource)
         {
-            
             var salon = _mapper.Map<SaveSalonResource, Salon>(resource);
             var result = await _salonService.SaveAsync(salon);
 
@@ -82,15 +80,6 @@ namespace Booking.Controllers
             return Ok(salonResource);
         }
         
-    }
-
-    public class ResponseExample{
-        public string response { get; set; }
-
-        public ResponseExample(string response){
-            this.response = response;
-        }
-    }
-    
+    }   
 
 }
