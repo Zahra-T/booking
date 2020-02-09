@@ -20,6 +20,7 @@ namespace Booking.Controllers
             _salonService = salonService;
             _mapper = mapper;
         }
+
         // GET api/vi/salons
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<SalonResource>), 200)]
@@ -37,6 +38,7 @@ namespace Booking.Controllers
         {
             var salon = _mapper.Map<SaveSalonResource, Salon>(resource);
             var result = await _salonService.SaveAsync(salon);
+
             if(!result.Success)
             {
                 return BadRequest(new ErrorResource(result.Message));
@@ -44,6 +46,40 @@ namespace Booking.Controllers
             var salonResource = _mapper.Map<Salon, SalonResource>(result.Resource);
             return Ok(salonResource);
         }
+
+        [HttpPut("{id}")]
+        [ProducesResponseType(typeof(SalonResource), 200)]
+        [ProducesResponseType(typeof(ErrorResource), 400)]
+        public async Task<IActionResult> UpdateAsync(int id, [FromBody] SaveSalonResource resource)
+        {
+            var salon = _mapper.Map<SaveSalonResource, Salon>(resource);
+            var result = await _salonService.UpdateAsync(id, salon);
+
+            if (!result.Success)
+            {
+                return BadRequest(new ErrorResource(result.Message));
+            }
+
+            var salonResource = _mapper.Map<Salon, SalonResource>(result.Resource);
+            return Ok(salonResource);
+        }
+
+        [HttpDelete("{id}")]
+        [ProducesResponseType(typeof(SalonResource), 200)]
+        [ProducesResponseType(typeof(ErrorResource), 400)]
+        public async Task<IActionResult> DeleteAsync(int id)
+        {
+            var result = await _salonService.DeleteAsync(id);
+
+            if (!result.Success)
+            {
+                return BadRequest(new ErrorResource(result.Message));
+            }
+
+            var salonResource = _mapper.Map<Salon, SalonResource>(result.Resource);
+            return Ok(salonResource);
+        }
+        
     }
 
     public class ResponseExample{
