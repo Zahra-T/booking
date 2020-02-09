@@ -1,11 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Caching.Memory;
 using Booking.Models;
-using Booking.Services;
 using Booking.Communication;
-using Booking.Infrastructure;
 using Booking.Repositories;
 
 namespace Booking.Services
@@ -14,22 +11,17 @@ namespace Booking.Services
     {
         private readonly ISalonRepository _salonRepository;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IMemoryCache _cache;
 
-        public SalonService(ISalonRepository salonRepository, IUnitOfWork unitOfWork, IMemoryCache cache)
+        public SalonService(ISalonRepository salonRepository, IUnitOfWork unitOfWork)
         {
             _salonRepository = salonRepository;
             _unitOfWork = unitOfWork;
-            _cache = cache;
+            
         }
 
         public async Task<IEnumerable<Salon>> ListAsync()
         {
-            var salons = await _cache.GetOrCreateAsync(CacheKeys.SalonsList, (entry) => {
-                entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(1);
-                return _salonRepository.ListAsync();
-            });
-            
+            var salons = await _salonRepository.ListAsync();
             return salons;
         }
 
@@ -58,10 +50,14 @@ namespace Booking.Services
                 return new SalonResponse("Salon not found.");
 
             existingSalon.Name = salon.Name;
+            existingSalon.SeatWidth = salon.SeatWidth;
+            existingSalon.SeatHeight = salon.SeatHeight;
+            existingSalon.DisplayLength = salon.DisplayLength;
 
             try
             {
                 _salonRepository.Update(existingSalon);
+                
                 await _unitOfWork.CompleteAsync();
 
                 return new SalonResponse(existingSalon);
