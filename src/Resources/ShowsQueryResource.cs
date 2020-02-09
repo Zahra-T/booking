@@ -1,6 +1,6 @@
 namespace Booking.Resources
 {
-    public class ShowQueryResource : QueryResource
+    public class ShowsQueryResource : QueryResource
     {
         public int? SalonId { get; set; }
     }

@@ -22,6 +22,7 @@ namespace Booking.Controllers
         }
 
         // GET api-vi/salons
+        // Return a list of salons.
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<SalonResource>), 200)]
         public async Task<IEnumerable<SalonResource>> ListAsync(){
@@ -31,6 +32,7 @@ namespace Booking.Controllers
             return resources;
         }
      
+        // Add a salon
         [HttpPost]
         [ProducesResponseType(typeof(SalonResource), 201)]
         [ProducesResponseType(typeof(ErrorResource), 400)]
@@ -47,6 +49,7 @@ namespace Booking.Controllers
             return Ok(salonResource);
         }
 
+        // Update a salon
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(SalonResource), 200)]
         [ProducesResponseType(typeof(ErrorResource), 400)]
@@ -64,6 +67,7 @@ namespace Booking.Controllers
             return Ok(salonResource);
         }
 
+        //Delete a salon
         [HttpDelete("{id}")]
         [ProducesResponseType(typeof(SalonResource), 200)]
         [ProducesResponseType(typeof(ErrorResource), 400)]

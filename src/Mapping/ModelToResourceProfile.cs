@@ -2,7 +2,7 @@
 using AutoMapper;
 using Booking.Models;
 using Booking.Resources;
-
+using Booking.Queries;
 
 namespace src.Mapping
 {
@@ -12,6 +12,7 @@ namespace src.Mapping
         {
             CreateMap<Salon, SalonResource>();
             CreateMap<Show, ShowResource>();
+            CreateMap<QueryResult<Show>, QueryResultResource<ShowResource>>();
         }
     }
 }

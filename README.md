@@ -14,7 +14,7 @@ dotnet ef database update
 
 * Salons Endpoint:
 
-    * Return a salon: 
+    * Return all salons: 
     ```
      GET api-v1/salons/id
     ```
@@ -56,6 +56,6 @@ dotnet ef database update
     ```
      DELETE api-v1/shows/id
     ```
-    
+
 
 

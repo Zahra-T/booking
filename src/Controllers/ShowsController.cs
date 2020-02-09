@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -24,19 +23,19 @@ namespace Booking.Controllers
             _mapper = mapper;
         }
 
-
+        // Return a list of shows
         [HttpGet]
         [ProducesResponseType(typeof(QueryResultResource<ShowResource>), 200)]
-        public async Task<QueryResultResource<ShowResource>> ListAsync([FromQuery] ShowQueryResource query)
+        public async Task<QueryResultResource<ShowResource>> ListAsync([FromQuery] ShowsQueryResource query)
         {
-            var showsQuery = _mapper.Map<ShowQueryResource, ShowsQuery>(query);
+            var showsQuery = _mapper.Map<ShowsQueryResource, ShowsQuery>(query);
             var queryResult = await _showService.ListAsync(showsQuery);
 
             var resource = _mapper.Map<QueryResult<Show>, QueryResultResource<ShowResource>>(queryResult);
             return resource;
         }
 
-
+        // Add a show
         [HttpPost]
         [ProducesResponseType(typeof(ShowResource), 201)]
         [ProducesResponseType(typeof(ErrorResource), 400)]
@@ -54,6 +53,7 @@ namespace Booking.Controllers
             return Ok(showResource);
         }
 
+        // Update a show
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(ShowResource), 201)]
         [ProducesResponseType(typeof(ErrorResource), 400)]
@@ -71,6 +71,7 @@ namespace Booking.Controllers
             return Ok(showResource);
         }
 
+        // Delete a show
         [HttpDelete("{id}")]
         [ProducesResponseType(typeof(ShowResource), 200)]
         [ProducesResponseType(typeof(ErrorResource), 400)]

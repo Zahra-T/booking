@@ -15,6 +15,7 @@ namespace Booking
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) {}
 
+        // Define tables
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
