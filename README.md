@@ -16,7 +16,7 @@ dotnet ef database update
 
     * Return all salons: 
     ```
-     GET api/v1/salons/id
+     GET api/v1/salons
     ```
      
     * Add a salon:
