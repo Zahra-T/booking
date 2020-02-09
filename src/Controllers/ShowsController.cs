@@ -9,7 +9,7 @@ using System;
 
 namespace Booking.Controllers
 {
-    [Route("/api-v1/shows")]
+    [Route("/api/v1/shows")]
     [Produces("application/json")]
     [ApiController]
     public class ShowsController : Controller

@@ -5,11 +5,12 @@ using Microsoft.AspNetCore.Mvc;
 using Booking.Models;
 using Booking.Services;
 using Booking.Resources;
+using System;
 
 namespace Booking.Controllers
 {
 
-    [Route("api-v1/salons")]
+    [Route("api/v1/salons")]
     [Produces("application/json")]
     [ApiController]
     public class SalonControler : ControllerBase 
@@ -21,7 +22,7 @@ namespace Booking.Controllers
             _mapper = mapper;
         }
 
-        // GET api-vi/salons
+        // GET api/vi/salons
         // Return a list of salons.
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<SalonResource>), 200)]
