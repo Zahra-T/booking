@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Booking.Models
 {
     public class Seat
@@ -7,5 +9,6 @@ namespace Booking.Models
         public Salon Salon {  get; set; }
         public int X { get; set; }
         public int Y { get; set; }
+        public IList<Ticket> Tickets { get; set; }
     }
 }
