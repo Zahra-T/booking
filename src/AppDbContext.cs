@@ -2,14 +2,13 @@ using Microsoft.EntityFrameworkCore;
 using Booking.Models;
 
 
-namespace booking.Contexts
+namespace Booking
 {
     public class AppDbContext : DbContext
     {
 
         public DbSet<Show> Shows { get; set; }
         public DbSet<Salon> Salons { get; set; }
-
         public DbSet<Ticket> Tickets { get; set; }
         public DbSet<Seat> Seats { get; set; }
 
@@ -29,12 +28,6 @@ namespace booking.Contexts
             builder.Entity<Show>().Property(p => p.Summary).IsRequired();
             builder.Entity<Show>().Property(p => p.Price).IsRequired();
             builder.Entity<Show>().Property(p => p.SalonId).IsRequired();
-           
-            builder.Entity<Show>().HasData
-            (
-                new Show { Id = 1, Title = "Madarane"},
-                new Show { Id = 2, Title = "Lottery"}
-            );
 
             builder.Entity<Seat>().ToTable("seat");
             builder.Entity<Seat>().HasKey(p => p.Id);
@@ -43,16 +36,15 @@ namespace booking.Contexts
             builder.Entity<Seat>().Property(p => p.Y).IsRequired();
             builder.Entity<Seat>().Property(p => p.SalonId).IsRequired();
 
-
             builder.Entity<Salon>().ToTable("salon");
             builder.Entity<Salon>().HasKey(p => p.Id);
             builder.Entity<Salon>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
             builder.Entity<Salon>().Property(p => p.Name).IsRequired().HasMaxLength(30);
             builder.Entity<Salon>().Property(p => p.SeatWidth ).IsRequired();
             builder.Entity<Salon>().Property(p => p.SeatHeight).IsRequired();
+            builder.Entity<Salon>().Property(p => p.DisplayLength).IsRequired();
             builder.Entity<Salon>().HasMany(p => p.Seats).WithOne(p => p.Salon).HasForeignKey(p => p.SalonId);
             builder.Entity<Salon>().HasMany(p => p.Shows).WithOne(p => p.Salon).HasForeignKey(p => p.SalonId);
-
 
             builder.Entity<Ticket>().ToTable("ticket");
             builder.Entity<Ticket>().HasKey(p => p.Id);
