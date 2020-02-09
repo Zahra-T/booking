@@ -1,16 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Linq; 
-using System.Threading.Tasks; using Microsoft.AspNetCore.Builder;
+using AutoMapper;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.EntityFrameworkCore;
-using Booking;
+using Booking.Repositories;
+using Booking.Services;
+
+
 
 
 namespace Booking
@@ -27,10 +25,23 @@ namespace Booking
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+
             services.AddDbContext<AppDbContext>(opts =>
                 opts.UseNpgsql(Configuration["ConnectionStrings:Booking"]));
 
-            services.AddControllers();
+            services.AddControllers().ConfigureApiBehaviorOptions(options =>
+            {
+                // Adds a custom error response factory when ModelState is invalid
+                options.InvalidModelStateResponseFactory = InvalidModelStateResponseFactory.ProduceErrorResponse;
+            });
+            services.AddScoped<ISalonRepository, SalonRepository>();
+            services.AddScoped<IShowRepository, ShowRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            services.AddScoped<ISalonService, SalonService>();
+            services.AddScoped<IShowService, ShowService>();
+            services.AddAutoMapper(typeof(Startup));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
